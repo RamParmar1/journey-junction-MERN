@@ -1,0 +1,128 @@
+/* ============================================
+   TRAVELVISTA — MYBOOKINGS.CSS
+   Coastal Theme
+   ============================================ */
+
+.bookings-list {
+  padding: 80px 5%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.bookings-list h1, .bookings-list h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.bookings-list h1::after, .bookings-list h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  border-radius: 99px;
+  margin-top: 16px;
+  margin-bottom: 40px;
+}
+
+.bookings-list .empty-state {
+  text-align: center;
+  padding: 80px 32px;
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.bookings-list .empty-state p {
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.booking-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin: 0 0 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px 32px;
+  align-items: start;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+.booking-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; width: 4px;
+  background: #0ea5e9;
+  border-radius: 99px 0 0 99px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.15);
+  border-color: #bae6fd;
+}
+
+.booking-card:hover::before { opacity: 1; }
+
+.booking-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+.booking-card p {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0 0 6px;
+  line-height: 1.6;
+}
+
+.booking-card p strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.booking-card .card-price {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0ea5e9;
+}
+
+.booking-card button, .cancel-btn {
+  background: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 12px;
+}
+
+.booking-card button:hover, .cancel-btn:hover {
+  background: #fecdd3;
+  color: #be123c;
+}
+
+@media (max-width: 600px) {
+  .bookings-list { padding: 40px 5%; }
+  .booking-card { grid-template-columns: 1fr; padding: 24px; }
+}

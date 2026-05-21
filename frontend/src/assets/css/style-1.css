@@ -1,0 +1,262 @@
+/* ============================================
+   TRAVELVISTA — AUTH.CSS
+   Login · Register · Home Hero
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ============================================
+   AUTH CARD BASE
+   ============================================ */
+.login-container,
+.register-container {
+  width: 100%;
+  margin: 60px auto;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(10, 15, 30, 0.08);
+  box-shadow: 0 4px 6px rgba(6, 8, 15, 0.04),
+              0 20px 60px rgba(6, 8, 15, 0.1);
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Gold top stripe */
+.login-container::before,
+.register-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #c9a84c 0%, #e2c47a 50%, #c9a84c 100%);
+}
+
+.login-container    { max-width: 420px; padding: 44px 40px 36px; }
+.register-container { max-width: 520px; padding: 44px 44px 36px; }
+
+/* ---- Headings ---- */
+.login-container h1,
+.login-container h2,
+.register-container h1,
+.register-container h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0a0f1e;
+  text-align: center;
+  letter-spacing: -0.01em;
+  margin: 0 0 28px;           /* space below heading before first input */
+}
+
+/* ---- Form Group — adds gap between each field ---- */
+.login-container .form-group,
+.register-container .form-group {
+  margin-bottom: 18px;        /* ← gap between input blocks */
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* ---- Labels ---- */
+.login-container label,
+.register-container label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3d5278;
+  margin: 0;                  /* label gap handled by .form-group gap */
+}
+
+/* ---- Inputs ---- */
+.login-container input[type="text"],
+.login-container input[type="email"],
+.login-container input[type="password"],
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="password"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #dce5f0;
+  border-radius: 9px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  color: #0a0f1e;
+  background: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+  display: block;
+
+  /* KEY FIX: explicit margin-bottom so inputs never touch */
+  margin-bottom: 0;           /* gap handled by parent .form-group */
+}
+
+/* If inputs are NOT wrapped in .form-group, add margin directly */
+.login-container input[type="email"] + input[type="password"],
+.login-container input[type="text"] + input[type="password"] {
+  margin-top: 14px;           /* ← fallback gap if no .form-group wrapper */
+}
+
+.login-container input:focus,
+.register-container input:focus {
+  border-color: #c9a84c;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+}
+
+.login-container input::placeholder,
+.register-container input::placeholder {
+  color: #a0b0c8;
+  font-size: 0.875rem;
+}
+
+/* ---- Submit Button ---- */
+.login-container button[type="submit"],
+.register-container button[type="submit"],
+.login-container .auth-btn,
+.register-container .auth-btn {
+  width: 100%;
+  padding: 13px 24px;
+  margin-top: 24px;
+  background: linear-gradient(135deg, #c9a84c, #b8922a);
+  color: #06080f;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.28);
+  transition: all 0.22s ease;
+  box-sizing: border-box;
+  display: block;
+}
+
+.login-container button[type="submit"]:hover,
+.register-container button[type="submit"]:hover,
+.login-container .auth-btn:hover,
+.register-container .auth-btn:hover {
+  background: linear-gradient(135deg, #e2c47a, #c9a84c);
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ---- Links ---- */
+.login-container a,
+.register-container a {
+  color: #c9a84c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.login-container a:hover,
+.register-container a:hover {
+  color: #b8922a;
+}
+
+/* ---- Switch link row ---- */
+.switch-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.switch-link a {
+  color: #c9a84c;
+  font-weight: 600;
+}
+
+/* ---- Error ---- */
+.error {
+  display: block;
+  text-align: center;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 7px;
+  padding: 9px 14px;
+  margin: 12px 0 0;
+}
+
+/* ============================================
+   HOME HERO VIDEO
+   ============================================ */
+.home-video-container {
+  position: relative;
+  width: 100%;
+  height: 620px;
+  overflow: hidden;
+  background: #06080f;
+}
+
+.background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.72);
+}
+
+.home-video-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(6,8,15,0.25) 0%,
+    rgba(6,8,15,0.08) 40%,
+    rgba(6,8,15,0.08) 60%,
+    rgba(6,8,15,0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  width: 90%;
+  max-width: 760px;
+}
+
+.video-overlay h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 16px;
+  text-shadow: 0 2px 24px rgba(6,8,15,0.45);
+}
+
+.video-overlay p {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: rgba(255,255,255,0.82);
+  letter-spacing: 0.02em;
+  margin: 0 0 32px;
+  text-shadow: 0 1px 8px rgba(6,8,15,0.4);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 640px) {
+  .login-container    { margin: 32px 16px; padding: 32px 24px 28px; max-width: unset; }
+  .register-container { margin: 32px 16px; padding: 32px 24px 28px; max-width: unset; }
+  .home-video-container { height: 480px; }
+}
