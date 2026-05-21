@@ -40,12 +40,11 @@ export default function Home() {
 
       {/* ===== HERO VIDEO SECTION ===== */}
       <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-        <video
-          autoPlay loop muted playsInline
+        <img
+          src="/images/hero.png"
+          alt="Travel Hero"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-        >
-          <source src="/videos/travel_hero_3.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Gradient Overlay */}
         <div style={{
