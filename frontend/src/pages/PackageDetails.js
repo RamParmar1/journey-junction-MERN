@@ -13,7 +13,7 @@ const PackageDetails = () => {
   useEffect(() => {
     const fetchPackage = async () => {
       try {
-        const res = await fetch(`/api/trips/${id}`);
+        const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + `/trips/${id}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setPackageData(data);

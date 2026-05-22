@@ -89,7 +89,7 @@ const MyBooking = () => {
 
   const handleCancel = async () => {
     try {
-      const res = await fetch(`/api/bookings/${cancelId}/cancel`, {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + `/bookings/${cancelId}/cancel`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${getToken()}` },
       });

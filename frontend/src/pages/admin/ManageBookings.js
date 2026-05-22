@@ -74,7 +74,7 @@ export default function ManageBookings() {
   const handleStatusChange = async (id, newStatus) => {
     setUpdating(id);
     try {
-      const res = await fetch(`/api/admin/bookings/${id}`, {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + `/admin/bookings/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({ status: newStatus }),
@@ -88,7 +88,7 @@ export default function ManageBookings() {
   const handleDelete = async () => {
     setDeleting(deleteId);
     try {
-      const res = await fetch(`/api/admin/bookings/${deleteId}`, {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + `/admin/bookings/${deleteId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${getToken()}` },
       });

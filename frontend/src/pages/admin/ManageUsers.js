@@ -31,7 +31,7 @@ export default function ManageUsers() {
     if (!window.confirm("Delete this user permanently?")) return;
     setDeleting(id);
     try {
-      const res = await fetch(`/api/admin/users/${id}`, {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + `/admin/users/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${getToken()}` },
       });
