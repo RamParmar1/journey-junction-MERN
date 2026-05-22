@@ -38,7 +38,7 @@ export default function ManageTrips() {
     if (!form.name || !form.location || !form.price) { setFormError("Name, location and price are required."); return; }
     setSaving(true);
     try {
-      const url    = editId ? (process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + (editId ? `/admin/trips/${editId}` : '/admin/trips');
+      const url    = (process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + (editId ? `/admin/trips/${editId}` : '/admin/trips');
       const method = editId ? "PUT" : "POST";
       const res = await fetch(url, {
         method,
