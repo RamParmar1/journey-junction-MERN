@@ -65,9 +65,9 @@ const AdminDashboard = () => {
       const headers = { Authorization: `Bearer ${token}` };
       try {
         const [uRes, tRes, bRes] = await Promise.all([
-          fetch("/api/admin/users", { headers }),
-          fetch("/api/trips", { headers }),
-          fetch("/api/admin/bookings", { headers }),
+          fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/admin/users", { headers }),
+          fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/trips", { headers }),
+          fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/admin/bookings", { headers }),
         ]);
         const users = uRes.ok ? toArray(await uRes.json()) : [];
         const trips = tRes.ok ? toArray(await tRes.json()) : [];

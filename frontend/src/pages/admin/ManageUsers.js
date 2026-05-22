@@ -12,7 +12,7 @@ export default function ManageUsers() {
   const fetchUsers = async () => {
     setLoading(true); setError("");
     try {
-      const res = await fetch("/api/admin/users", {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/admin/users", {
         headers: { Authorization: `Bearer ${getToken()}` },  // ← fixed
       });
       if (!res.ok) throw new Error(`${res.status}`);

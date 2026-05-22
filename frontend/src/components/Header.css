@@ -366,7 +366,26 @@ a.user-name,
     border-radius: 12px;
   }
 
+  .user-links {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
   .user-name {
-    display: none;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-links a:not(.user-name):not(.register-link) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-links button.logout-btn, .register-link {
+    width: 100%;
+    justify-content: center;
   }
 }

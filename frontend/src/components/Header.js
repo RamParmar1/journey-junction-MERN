@@ -33,7 +33,9 @@ const Header = () => {
           onClick={() => setMenuOpen((s) => !s)}
           aria-label="Toggle navigation"
         >
-
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
         {/* Navigation Links */}
@@ -67,27 +69,27 @@ const Header = () => {
               </NavLink>
             )}
           </nav>
-        </div>
-
-        {/* User Links */}
-        <div className="user-links">
-          {user ? (
-            <>
-              <Link to="/profile" className="user-name">
-                {user.name || "User"}
-              </Link>
-              <button id="btn" className="logout-btn" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/register" className="register-link">
-                Register
-              </Link>
-            </>
-          )}
+          
+          {/* User Links */}
+          <div className="user-links">
+            {user ? (
+              <>
+                <Link to="/profile" className="user-name">
+                  {user.name || "User"}
+                </Link>
+                <button id="btn" className="logout-btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="nav-link">Login</Link>
+                <Link to="/register" className="register-link">
+                  Register
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>

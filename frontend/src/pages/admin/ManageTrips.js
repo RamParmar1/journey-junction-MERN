@@ -19,7 +19,7 @@ export default function ManageTrips() {
   const fetchTrips = async () => {
     setLoading(true); setError("");
     try {
-      const res = await fetch("/api/trips", {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/trips", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (!res.ok) throw new Error();

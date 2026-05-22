@@ -59,7 +59,7 @@ export default function ManageBookings() {
   const fetchBookings = async () => {
     setLoading(true); setError("");
     try {
-      const res = await fetch("/api/admin/bookings", {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/admin/bookings", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (!res.ok) throw new Error();

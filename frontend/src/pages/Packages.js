@@ -11,7 +11,8 @@ export default function Packages() {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const res = await fetch("/api/trips");
+        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${apiUrl}/trips`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setPackages(Array.isArray(data) ? data : data.trips || []);
