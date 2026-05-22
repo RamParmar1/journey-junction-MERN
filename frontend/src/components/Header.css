@@ -105,11 +105,16 @@ header:hover {
 /* ============================================
    NAVBAR
    ============================================ */
+.menu-overlay,
+.sidebar-header {
+  display: none;
+}
+
 .navbar {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .navbar nav {
@@ -117,7 +122,7 @@ header:hover {
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  margin: 0;
+  margin: 0 auto;
   padding: 4px;
   list-style: none;
   background: rgba(241, 245, 249, 0.6);
@@ -332,6 +337,7 @@ a.user-name,
   }
 
   .menu-overlay {
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
