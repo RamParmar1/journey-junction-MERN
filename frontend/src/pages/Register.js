@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-//import api from "../api";
 import { register } from '../api';
 import { useAuth } from "../AuthContext";
-
+import toast from "react-hot-toast";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -16,8 +15,6 @@ export default function Register() {
     cpassword: "",
   });
 
-  const [error, setError] = useState("");
-
   // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,16 +23,34 @@ export default function Register() {
   // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     if (formData.password !== formData.cpassword) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    const pw = formData.password;
+    if (pw.length < 8) {
+      toast.error("Password must be at least 8 characters long.");
+      return;
+    }
+    if (pw.includes("_")) {
+      toast.error("Password cannot contain an underscore (_).");
+      return;
+    }
+    const numbers = pw.replace(/[^0-9]/g, "").length;
+    if (numbers < 2) {
+      toast.error("Password must contain at least 2 numbers.");
+      return;
+    }
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>\-\/=\+\[\]]/.test(pw);
+    if (!hasSymbol) {
+      toast.error("Password must contain at least one special symbol (e.g., @, #, $).");
       return;
     }
 
     try {
-     // const res = await api.post("/users", {
-     const res = await register({
+      const res = await register({
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -43,17 +58,16 @@ export default function Register() {
 
       // ✅ Auto login after registration
       login(res.data);
+      toast.success("Registration successful! Welcome to Journey Junction.");
       navigate("/"); // redirect home
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      toast.error(err.response?.data?.message || "Registration failed. Please try again.");
     }
   };
 
   return (
     <div className="register-container">
       <h1>User Registration</h1>
-
-      {error && <p className="error">{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Full Name:</label>

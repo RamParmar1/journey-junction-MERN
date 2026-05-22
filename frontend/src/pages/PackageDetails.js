@@ -31,40 +31,69 @@ const PackageDetails = () => {
   if (!packageData) return <div className="container">Package not found</div>;
 
   return (
-    <div className="container package-details">
-      <div className="row">
-        <div className="col-md-6">
+    <div className="package-details-page">
+      <div className="pd-container">
+        <div className="pd-image-section">
           <img
             src={packageData.image || "/images/default-package.jpg"}
             alt={packageData.name}
-            className="img-fluid rounded"
+            className="pd-image"
           />
         </div>
-        <div className="col-md-6">
-          <h2>{packageData.name}</h2>
-          <p className="location"><strong>Location:</strong> {packageData.location}</p>
-          <p className="price"><strong>Price:</strong> ₹{packageData.price} per person</p>
-          <p className="description">{packageData.description}</p>
-          <p><strong>Duration:</strong> {packageData.duration}</p>
-          <p><strong>Max Group Size:</strong> {packageData.maxGroupSize} people</p>
-
-          {user?.isAdmin ? (
-            <div style={{
-              background: "#fff3cd", border: "1px solid #ffc107",
-              borderRadius: "8px", padding: "0.75rem 1.25rem",
-              color: "#856404", fontWeight: "500", fontSize: "0.95rem"
-            }}>
-              👑 Admin view 
+        
+        <div className="pd-content-section">
+          <div className="pd-header">
+            <div className="pd-location">
+              <i className="fa-solid fa-location-dot"></i> {packageData.location}
             </div>
-          ) : user ? (
-            <Link to={`/booking/${packageData._id}`} className="btn btn-primary btn-lg">
-              Book Now
-            </Link>
-          ) : (
-            <Link to="/login" className="btn btn-outline-primary btn-lg">
-              Login to Book
-            </Link>
-          )}
+            <h1 className="pd-title">{packageData.name}</h1>
+          </div>
+          
+          <div className="pd-price-card">
+            <span className="pd-price-label">Starting from</span>
+            <span className="pd-price-value">₹{Number(packageData.price).toLocaleString()} <span className="pd-price-suffix">/ person</span></span>
+          </div>
+
+          <div className="pd-meta-grid">
+            <div className="pd-meta-item">
+              <div className="pd-meta-icon"><i className="fa-regular fa-clock"></i></div>
+              <div className="pd-meta-text">
+                <span className="pd-meta-label">Duration</span>
+                <span className="pd-meta-value">{packageData.duration || "N/A"}</span>
+              </div>
+            </div>
+            <div className="pd-meta-item">
+              <div className="pd-meta-icon"><i className="fa-solid fa-user-group"></i></div>
+              <div className="pd-meta-text">
+                <span className="pd-meta-label">Max Group</span>
+                <span className="pd-meta-value">{packageData.maxGroupSize || 99} people</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="pd-description-section">
+            <h3>About this trip</h3>
+            <p className="pd-description">{packageData.description}</p>
+          </div>
+
+          <div className="pd-action-area">
+            {user?.isAdmin ? (
+              <div className="pd-admin-badge">
+                <i className="fa-solid fa-crown"></i> Admin View (Booking Disabled)
+              </div>
+            ) : user ? (
+              <Link to={`/booking/${packageData._id}`} className="pd-btn pd-btn-primary">
+                Book This Package <i className="fa-solid fa-arrow-right"></i>
+              </Link>
+            ) : (
+              <div className="pd-login-prompt">
+                <p>Want to book this amazing trip?</p>
+                <Link to="/login" className="pd-btn pd-btn-outline">
+                  Login to Continue
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

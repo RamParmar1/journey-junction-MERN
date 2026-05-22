@@ -1,56 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import toast from "react-hot-toast";
 import "./Booking.css";
-
-function SuccessModal({ trip, travelers, total, onClose }) {
-  return (
-    <div style={{
-      position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      zIndex: 9999, padding: "1rem"
-    }}>
-      <div style={{
-        background: "#fff", borderRadius: "20px", padding: "3rem 2.5rem",
-        maxWidth: "460px", width: "100%", textAlign: "center",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.3)"
-      }}>
-        <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🎉</div>
-        <h2 style={{ color: "#1a1a2e", fontSize: "1.6rem", fontWeight: "700", marginBottom: "0.5rem" }}>
-          Booking Confirmed!
-        </h2>
-        <p style={{ color: "#666", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
-          Your trip has been successfully booked. Get ready for an amazing adventure!
-        </p>
-        <div style={{
-          background: "#f8f9fa", borderRadius: "12px", padding: "1.25rem",
-          marginBottom: "1.5rem", textAlign: "left"
-        }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-            <span style={{ color: "#888", fontSize: "0.9rem" }}>Trip</span>
-            <span style={{ fontWeight: "600", fontSize: "0.9rem" }}>{trip}</span>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-            <span style={{ color: "#888", fontSize: "0.9rem" }}>Travelers</span>
-            <span style={{ fontWeight: "600", fontSize: "0.9rem" }}>{travelers}</span>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #eee", paddingTop: "0.5rem", marginTop: "0.5rem" }}>
-            <span style={{ color: "#888", fontSize: "0.9rem" }}>Total Paid</span>
-            <span style={{ fontWeight: "800", color: "#d4af37", fontSize: "1rem" }}>₹{total?.toLocaleString()}</span>
-          </div>
-        </div>
-        <button onClick={onClose} style={{
-          background: "linear-gradient(135deg, #1a1a2e, #0f3460)",
-          color: "#d4af37", border: "none", borderRadius: "10px",
-          padding: "0.85rem 2rem", fontSize: "1rem", fontWeight: "700",
-          cursor: "pointer", width: "100%"
-        }}>
-          View My Bookings →
-        </button>
-      </div>
-    </div>
-  );
-}
 
 const Booking = () => {
   const { id } = useParams();
@@ -112,77 +64,98 @@ const Booking = () => {
         throw new Error(errData.message || "Booking failed");
       }
 
-      setShowSuccess(true);
+      toast.success("Booking Confirmed! You can view it in My Bookings.");
+      navigate("/my-bookings");
     } catch (err) {
-      setError(err.message || "Failed to create booking");
+      toast.error(err.message || "Failed to create booking");
     } finally {
       setLoading(false);
     }
   };
 
   if (pageLoading) return <div className="container">Loading package details...</div>;
-  if (error && !packageData) return <div className="container alert alert-danger">{error}</div>;
   if (!packageData) return <div className="container">Package not found</div>;
 
   const totalAmount = packageData.price * formData.travelers;
 
   return (
-    <div className="container booking-container">
-      {showSuccess && (
-        <SuccessModal
-          trip={packageData?.name}
-          travelers={formData.travelers}
-          total={packageData?.price * formData.travelers}
-          onClose={() => navigate("/my-bookings")}
-        />
-      )}
-      <h2>Book Your Trip: {packageData.name}</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-
-      <div className="row">
-        <div className="col-md-6">
-          <div className="package-details">
-            <h4>Package Details</h4>
-            <p><strong>Location:</strong> {packageData.location}</p>
-            <p><strong>Price per person:</strong> ₹{packageData.price}</p>
-            <p><strong>Duration:</strong> {packageData.duration}</p>
-            <p><strong>Description:</strong> {packageData.description}</p>
+    <div className="booking-page">
+      <div className="bk-container">
+        <h1 className="bk-page-title">Complete Your Booking</h1>
+        
+        <div className="bk-layout">
+          {/* Left Side: Package Summary */}
+          <div className="bk-summary-card">
+            <div className="bk-summary-header">
+              <h3>{packageData.name}</h3>
+              <span className="bk-location"><i className="fa-solid fa-location-dot"></i> {packageData.location}</span>
+            </div>
+            
+            <div className="bk-summary-details">
+              <div className="bk-detail-row">
+                <span className="bk-detail-label">Duration</span>
+                <span className="bk-detail-value">{packageData.duration}</span>
+              </div>
+              <div className="bk-detail-row">
+                <span className="bk-detail-label">Price per traveler</span>
+                <span className="bk-detail-value">₹{packageData.price.toLocaleString()}</span>
+              </div>
+            </div>
+            
+            <div className="bk-summary-desc">
+              <p>{packageData.description}</p>
+            </div>
           </div>
-        </div>
 
-        <div className="col-md-6">
-          <form onSubmit={handleSubmit} className="booking-form">
-            <div className="form-group">
-              <label htmlFor="travelers">Number of Travelers:</label>
-              <input
-                type="number" id="travelers" name="travelers"
-                min="1" max={packageData.maxGroupSize || 99}
-                value={formData.travelers}
-                onChange={handleChange}
-                className="form-control" required
-              />
-            </div>
+          {/* Right Side: Booking Form */}
+          <div className="bk-form-card">
+            <h2>Travel Details</h2>
+            <form onSubmit={handleSubmit} className="bk-form">
+              <div className="bk-form-group">
+                <label htmlFor="travelers">Number of Travelers</label>
+                <div className="bk-input-wrapper">
+                  <i className="fa-solid fa-users bk-input-icon"></i>
+                  <input
+                    type="number" id="travelers" name="travelers"
+                    min="1" max={packageData.maxGroupSize || 99}
+                    value={formData.travelers}
+                    onChange={handleChange}
+                    className="bk-input" required
+                  />
+                </div>
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="date">Travel Date:</label>
-              <input
-                type="date" id="date" name="date"
-                value={formData.date}
-                onChange={handleChange}
-                className="form-control" required
-                min={new Date().toISOString().split("T")[0]}
-              />
-            </div>
+              <div className="bk-form-group">
+                <label htmlFor="date">Travel Date</label>
+                <div className="bk-input-wrapper">
+                  <i className="fa-regular fa-calendar bk-input-icon"></i>
+                  <input
+                    type="date" id="date" name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    className="bk-input" required
+                    min={new Date().toISOString().split("T")[0]}
+                  />
+                </div>
+              </div>
 
-            <div className="price-summary">
-              <h5>Price Summary</h5>
-              <p>₹{packageData.price} × {formData.travelers} travelers = <strong>₹{totalAmount}</strong></p>
-            </div>
+              <div className="bk-total-section">
+                <span className="bk-total-label">Total Amount</span>
+                <span className="bk-total-value">₹{totalAmount.toLocaleString()}</span>
+                <div className="bk-total-calc">
+                  (₹{packageData.price.toLocaleString()} × {formData.travelers} travelers)
+                </div>
+              </div>
 
-            <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-              {loading ? "Booking..." : "Confirm Booking"}
-            </button>
-          </form>
+              <button type="submit" className="bk-submit-btn" disabled={loading}>
+                {loading ? (
+                  <><i className="fa-solid fa-circle-notch fa-spin"></i> Processing...</>
+                ) : (
+                  <><i className="fa-solid fa-check"></i> Confirm Booking</>
+                )}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

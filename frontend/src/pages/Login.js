@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from '../api'; // Changed import
 import { useAuth } from "../AuthContext";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,7 +11,6 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -19,14 +19,14 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
     try {
       const res = await login(formData); // Changed API call
       authLogin(res.data);
+      toast.success("Welcome back!");
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed. Please check your credentials.");
     } finally {
       setLoading(false);
     }
@@ -35,7 +35,6 @@ export default function Login() {
   return (
     <div className="login-container">
       <h2>Login</h2>
-      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="email"

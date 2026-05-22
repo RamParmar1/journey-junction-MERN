@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -28,6 +29,7 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
   return (
     <Router>
+      <Toaster position="top-center" toastOptions={{ duration: 4000, style: { background: '#333', color: '#fff', padding: '16px', borderRadius: '10px' } }} />
       <Header />
       <main style={{ minHeight: "78vh", padding: "12px" }}>
         <Routes>
