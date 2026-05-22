@@ -110,7 +110,11 @@ header:hover {
   display: none;
 }
 
-.navbar {
+.mobile-navbar {
+  display: none !important;
+}
+
+.desktop-navbar {
   flex: 1;
   display: flex;
   align-items: center;
@@ -362,7 +366,12 @@ a.user-name,
     visibility: visible;
   }
 
-  .navbar {
+  .desktop-navbar {
+    display: none !important;
+  }
+
+  .mobile-navbar {
+    display: flex !important;
     position: fixed;
     top: 0;
     right: 0;
@@ -380,7 +389,7 @@ a.user-name,
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
-  .navbar.open {
+  .mobile-navbar.open {
     transform: translateX(0);
   }
 
