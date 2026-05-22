@@ -125,14 +125,16 @@ export default function ManageTrips() {
               <tbody>
                 {filtered.map((trip, i) => (
                   <tr key={trip._id}>
-                    <td className="muted">{i + 1}</td>
-                    <td><strong>{trip.name}</strong></td>
-                    <td className="muted">{trip.location}</td>
-                    <td><strong style={{ color: "#c9a84c" }}>₹{Number(trip.price).toLocaleString("en-IN")}</strong></td>
-                    <td className="muted">{trip.duration || "—"}</td>
-                    <td>
-                      <button className="btn-table-edit" onClick={() => handleEdit(trip)}>Edit</button>
-                      <button className="btn-table-delete" onClick={() => handleDelete(trip._id)} disabled={deleting === trip._id}>{deleting === trip._id ? "…" : "Delete"}</button>
+                    <td className="muted" data-label="#">{i + 1}</td>
+                    <td data-label="Name"><strong>{trip.name}</strong></td>
+                    <td className="muted" data-label="Location">{trip.location}</td>
+                    <td data-label="Price"><strong style={{ color: "#c9a84c" }}>₹{Number(trip.price).toLocaleString("en-IN")}</strong></td>
+                    <td className="muted" data-label="Duration">{trip.duration || "—"}</td>
+                    <td data-label="Actions">
+                      <div className="admin-table-actions">
+                        <button className="btn-table-edit" onClick={() => handleEdit(trip)}>Edit</button>
+                        <button className="btn-table-delete" onClick={() => handleDelete(trip._id)} disabled={deleting === trip._id}>{deleting === trip._id ? "…" : "Delete"}</button>
+                      </div>
                     </td>
                   </tr>
                 ))}

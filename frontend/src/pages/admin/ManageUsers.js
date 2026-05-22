@@ -71,12 +71,16 @@ export default function ManageUsers() {
               <tbody>
                 {filtered.map((user, i) => (
                   <tr key={user._id}>
-                    <td className="muted">{i + 1}</td>
-                    <td><strong>{user.name || "—"}</strong></td>
-                    <td className="muted">{user.email}</td>
-                    <td><span className={`badge ${user.isAdmin || user.role === "admin" ? "admin-role" : "active"}`}>{user.isAdmin || user.role === "admin" ? "admin" : "user"}</span></td>
-                    <td className="muted">{user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td>
-                    <td><button className="btn-table-delete" onClick={() => handleDelete(user._id)} disabled={deleting === user._id}>{deleting === user._id ? "Deleting…" : "Delete"}</button></td>
+                    <td className="muted" data-label="#">{i + 1}</td>
+                    <td data-label="Name"><strong>{user.name || "—"}</strong></td>
+                    <td className="muted" data-label="Email">{user.email}</td>
+                    <td data-label="Role"><span className={`badge ${user.isAdmin || user.role === "admin" ? "admin-role" : "active"}`}>{user.isAdmin || user.role === "admin" ? "admin" : "user"}</span></td>
+                    <td className="muted" data-label="Joined">{user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td>
+                    <td data-label="Actions">
+                      <div className="admin-table-actions">
+                        <button className="btn-table-delete" onClick={() => handleDelete(user._id)} disabled={deleting === user._id}>{deleting === user._id ? "Deleting…" : "Delete"}</button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>

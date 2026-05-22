@@ -180,16 +180,16 @@ export default function ManageBookings() {
                   const statusOptions = getStatusOptions(b.status);
                   return (
                     <tr key={b._id}>
-                      <td className="muted">{i + 1}</td>
-                      <td>
+                      <td className="muted" data-label="#">{i + 1}</td>
+                      <td data-label="User">
                         <strong>{b.user?.name || "—"}</strong>
                         {b.user?.email && <div style={{ fontSize: "0.75rem", color: "#94a3b8" }}>{b.user.email}</div>}
                       </td>
-                      <td>{b.package?.name || b.package?.title || "—"}</td>
-                      <td className="muted">{b.travelers || 1}</td>
-                      <td><strong style={{ color: "#c9a84c" }}>₹{Number(b.totalAmount || 0).toLocaleString("en-IN")}</strong></td>
-                      <td className="muted">{b.createdAt ? new Date(b.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td>
-                      <td>
+                      <td data-label="Package">{b.package?.name || b.package?.title || "—"}</td>
+                      <td className="muted" data-label="Travelers">{b.travelers || 1}</td>
+                      <td data-label="Amount"><strong style={{ color: "#c9a84c" }}>₹{Number(b.totalAmount || 0).toLocaleString("en-IN")}</strong></td>
+                      <td className="muted" data-label="Date">{b.createdAt ? new Date(b.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td>
+                      <td data-label="Status">
                         <select
                           value={b.status}
                           disabled={updating === b._id || isCancelled}
@@ -214,14 +214,16 @@ export default function ManageBookings() {
                           <div style={{ fontSize: "0.7rem", color: "#991b1b", marginTop: "3px" }}><i className="fa-solid fa-lock"></i> Locked</div>
                         )}
                       </td>
-                      <td>
-                        <button
-                          className="btn-table-delete"
-                          onClick={() => setDeleteId(b._id)}
-                          disabled={deleting === b._id}
-                        >
-                          {deleting === b._id ? "…" : "Delete"}
-                        </button>
+                      <td data-label="Actions">
+                        <div className="admin-table-actions">
+                          <button
+                            className="btn-table-delete"
+                            onClick={() => setDeleteId(b._id)}
+                            disabled={deleting === b._id}
+                          >
+                            {deleting === b._id ? "…" : "Delete"}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
