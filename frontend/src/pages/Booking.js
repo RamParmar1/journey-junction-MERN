@@ -94,7 +94,7 @@ const Booking = () => {
       const stored = localStorage.getItem("jj_user");
       const token = stored ? JSON.parse(stored)?.token : null;
 
-      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/bookings", {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + "/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

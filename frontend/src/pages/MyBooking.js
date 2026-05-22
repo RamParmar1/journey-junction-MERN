@@ -72,7 +72,7 @@ const MyBooking = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + '/bookings/mybookings", {
+      const res = await fetch((process.env.REACT_APP_API_URL || 'http://localhost:5000/api') + "/bookings/mybookings", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (!res.ok) throw new Error("Failed to fetch");
